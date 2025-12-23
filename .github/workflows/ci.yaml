@@ -20,30 +20,13 @@ permissions:
   checks: write  # For publishing test results
 
 jobs:
-  _setup: &setup
-    - uses: actions/checkout@v6
-      with:
-        submodules: true
-
-    - uses: actions/setup-java@v5
-      with:
-        distribution: temurin
-        java-version: 17
-
-    - uses: android-actions/setup-android@v3
-
-    - uses: gradle/actions/setup-gradle@v5
-
   run-unit-tests:
     name: 'Run Unit Tests'
     runs-on: macos-14  # macOS M1 runner
     timeout-minutes: 10
 
     steps:
-      - *setup
-
-      - name: Setup local variables
-        run: echo "VGS_VAULT_ID=${{ secrets.VGS_VAULT_ID }}" >> local.properties
+      - uses: ./.github/actions/setup
 
       - name: Run Detekt
         run: ./gradlew vgsshow:detekt --continue
