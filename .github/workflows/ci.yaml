@@ -28,8 +28,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          submodules: true
 
-      - uses: ./.github/actions/setup
+      - name: Setup environment
+        uses: ./.github/actions/setup
         env:
           VGS_VAULT_ID: ${{ secrets.VGS_VAULT_ID }}
 
