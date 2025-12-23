@@ -35,7 +35,7 @@ jobs:
         run: echo "VGS_VAULT_ID=$VGS_VAULT_ID" >> local.properties
 
       - name: Check local variables
-        run: echo "$VGS_VAULT_ID"
+        run: echo ${{ secrets.VGS_VAULT_ID }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
