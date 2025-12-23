@@ -64,7 +64,6 @@ jobs:
     name: 'Run UI Tests'
     runs-on: macos-14  # macOS M1 runner
     timeout-minutes: 10
-    if: startsWith(github.ref, 'refs/heads/feature/')
 
     steps:
       - name: Checkout code
