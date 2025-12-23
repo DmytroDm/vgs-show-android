@@ -59,3 +59,22 @@ jobs:
           report_paths: '**/build/test-results/**/TEST-*.xml'
           check_name: 'Unit Test Results'
           fail_on_failure: true
+
+  run-ui-tests:
+    name: 'Run UI Tests'
+    runs-on: macos-14  # macOS M1 runner
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Setup environment
+        uses: ./.github/actions/setup
+        env:
+          VGS_VAULT_ID: ${{ secrets.VGS_VAULT_ID }}
+
+      - name: Assemble debug & test APK
+        run: ./gradlew assembleDebug assembleAndroidTest
