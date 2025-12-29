@@ -83,7 +83,10 @@ jobs:
           GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
         shell: bash
         run: |
-          echo $GITHUB_WORKSPACE
+          if [ -d "$GITHUB_WORKSPACE/app" ]; then
+              echo Directory exist
+          fi
+          echo $GITHUB_WORKSPACE/app
 #          echo $GOOGLE_SERVICE_ACCOUNT_KEY | base64 -di > ${HOME}/gcloud-service-key.json
 
       - name: Assemble debug & test APK
