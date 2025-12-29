@@ -101,10 +101,9 @@ jobs:
 
           echo "Project ID = $project_id"
           cat $google_service_key_path
+          
+          rm  $google_service_key_path
+          cat $google_service_key_path
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
-
-      - name: Delete Google Service Account Key
-        run: |
-          rm $GITHUB_WORKSPACE/app/gcloud-service-key.json
