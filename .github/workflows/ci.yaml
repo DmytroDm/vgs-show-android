@@ -86,5 +86,13 @@ jobs:
           echo $GOOGLE_SERVICE_ACCOUNT_KEY > $GITHUB_WORKSPACE/app/gcloud-service-key.json
           cat $GITHUB_WORKSPACE/app/gcloud-service-key.json
 
-      - name: Assemble debug & test APK
-        run: ./gradlew assembleDebug assembleAndroidTest
+#      - name: Assemble debug & test APK
+#        run: ./gradlew assembleDebug assembleAndroidTest
+
+      - name: Delete Google Service Account Key
+        env:
+          GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+        shell: bash
+        run: |
+          rm $GITHUB_WORKSPACE/app/gcloud-service-key.json
+          cat $GITHUB_WORKSPACE/app/gcloud-service-key.json
