@@ -54,6 +54,9 @@ jobs:
           echo $COVERAGE
 
           METRIC_VALUE=`echo ${COVERAGE//[[:space:]]/} | sed 's/.$//'`
+          
+          echo $METRIC_VALUE
+          
           echo "metric_value=$METRIC_VALUE" >> $GITHUB_OUTPUT
 
       - name: (Compass) Publish code coverage
