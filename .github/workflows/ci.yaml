@@ -85,35 +85,6 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
 
-#      - name: Setup Google Service Account
-#        env:
-#          GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-#        shell: bash
-#        run: |
-#          google_service_key_path=$GITHUB_WORKSPACE/app/gcloud-service-key.json
-#
-#          echo $GOOGLE_SERVICE_ACCOUNT_KEY > $google_service_key_path
-#
-#          if [ ! -s "$google_service_key_path" ]; then
-#            echo "Service account key file was not created."
-#            exit 1
-#          fi
-#
-#          project_id=$(cat $google_service_key_path | jq -r ".project_info.project_id")
-#
-#          if [ -z "$project_id" ]; then
-#            echo "Project id is missing in service account key."
-#            exit 1
-#          fi
-#
-#          echo "Project ID = $project_id"
-#          cat $google_service_key_path
-#
-#          gcloud auth activate-service-account --key-file=$google_service_key_path
-#          gcloud config set project $project_id
-#
-#          rm  $google_service_key_path
-#
       - name: Assemble debug & test APK
         run: ./gradlew assembleDebug assembleAndroidTest
 
@@ -122,4 +93,6 @@ jobs:
           gcloud firebase test android run \
           --type instrumentation \
           --app app/build/outputs/apk/debug/app-debug.apk \
-          --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+          --device model=oriole,version=31,locale=en,orientation=portrait \
+          --device model=blazer,version=36,locale=en,orientation=portrait

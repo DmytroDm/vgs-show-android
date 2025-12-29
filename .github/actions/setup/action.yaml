@@ -15,7 +15,7 @@ runs:
       with:
         path: |
           ~/.gradle/caches
-          ~/.gradle/wrapper/
+          ~/.gradle/wrapper/dists
         key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: gradle-
 
