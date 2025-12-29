@@ -88,6 +88,10 @@ jobs:
          
           echo $GOOGLE_SERVICE_ACCOUNT_KEY > google_service_key_path
           
+          project_id=$(cat google_service_key_path | jq -r ".project_id")
+          
+          echo project_id
+          
           if [ ! -f google_service_key_path ]; then
             echo "Google Service Account doesn't exist."
             exit 1
@@ -95,8 +99,8 @@ jobs:
           
           cat google_service_key_path
           
-          sudo gcloud auth activate-service-account --key-file=google_service_key_path
-          sudo gcloud --quiet config set project $GOOGLE_PROJECT_ID
+          gcloud auth activate-service-account --key-file=google_service_key_path
+          gcloud --quiet config set project $GOOGLE_PROJECT_ID
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
