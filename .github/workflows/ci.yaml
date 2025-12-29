@@ -78,12 +78,12 @@ jobs:
         env:
           VGS_VAULT_ID: ${{ secrets.VGS_VAULT_ID }}
 
-      - uses: google-github-actions/auth@v2
+      - name: Auth Google Cloud SDK
+        uses: google-github-actions/auth@v2
         with:
-          project_id: 'vgs-collect-show-mobile'
           credentials_json: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
 
-      - name: Set up Cloud SDK
+      - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
 
 #      - name: Setup Google Service Account
