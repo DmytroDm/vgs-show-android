@@ -87,16 +87,20 @@ jobs:
          
           echo $GOOGLE_SERVICE_ACCOUNT_KEY > $google_service_key_path
           
+          if [ ! -s "$google_service_key_path" ]; then
+            echo "Service account key file was not created."
+            exit 1
+          fi
+          
           project_id=$(cat $google_service_key_path | jq -r ".project_info.project_id")
           
-          echo "project_id=$project_id"
-          
-#          if [ ! -f "$google_service_key_path" ] || [ -z "$project_id" ]; then
-#            echo "Google Service Account doesn't exist or project_id is not set."
-#            exit 1
-#          fi
-#
-#          cat $google_service_key_path
+          if [ -z "$project_id" ]; then
+            echo "Project ID is missing in service account key."
+            exit 1
+          fi
+
+          echo "Project ID = $project_id"
+          cat $google_service_key_path
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
