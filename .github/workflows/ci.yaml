@@ -79,9 +79,11 @@ jobs:
           VGS_VAULT_ID: ${{ secrets.VGS_VAULT_ID }}
 
       - name: Setup Google Service Account
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.VGS_VAULT_ID }}
         shell: bash
         run: |
-          echo {{ secrets.VGS_VAULT_ID }}
+          echo $SERVICE_ACCOUNT
 
       - name: Assemble debug & test APK
         run: ./gradlew assembleDebug assembleAndroidTest
