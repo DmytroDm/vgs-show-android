@@ -13,6 +13,6 @@ class InstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.verygoodsecurity.demoshow", appContext.packageName)
+        assertEquals("com.verygoodsecurity.demohow", appContext.packageName)
     }
 }
