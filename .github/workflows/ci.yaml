@@ -50,6 +50,9 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           COVERAGE=$(sed -n '51p' vgsshow/build/reports/kover/htmlDebug/index.html)
+          
+          echo $COVERAGE
+          
           METRIC_VALUE=`echo ${COVERAGE//[[:space:]]/} | sed 's/.$//'`
           echo "metric_value=$METRIC_VALUE" >> $GITHUB_OUTPUT
 
