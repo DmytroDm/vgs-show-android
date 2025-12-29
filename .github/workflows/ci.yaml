@@ -78,24 +78,24 @@ jobs:
         env:
           VGS_VAULT_ID: ${{ secrets.VGS_VAULT_ID }}
 
-#      - name: Setup Google Service Account
-#        env:
-#          GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-#        shell: bash
-#        run: |
-#          key_path=$GITHUB_WORKSPACE/app/gcloud-service-key.json
+      - name: Setup Google Service Account
+        env:
+          GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+        shell: bash
+        run: |
+          key_path=$GITHUB_WORKSPACE/app/gcloud-service-key.json
+         
+          echo $GOOGLE_SERVICE_ACCOUNT_KEY > $GITHUB_WORKSPACE/app/gcloud-service-key.json
           
-#          echo $GOOGLE_SERVICE_ACCOUNT_KEY > $GITHUB_WORKSPACE/app/gcloud-service-key.json
-          
-#          if [ -f $GITHUB_WORKSPACE/app/gcloud-service-key.json ]; then
-#             cat key_path
-#            sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-#            sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-#            cat $GITHUB_WORKSPACE/app/gcloud-service-key.json
-#          else
-#            echo "Google Service Account doesn't exist."
-#            exit 1
-#          fi
+          if [ -f $GITHUB_WORKSPACE/app/gcloud-service-key.json ]; then
+            cat key_path
+            sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            cat $GITHUB_WORKSPACE/app/gcloud-service-key.json
+          else
+            echo "Google Service Account doesn't exist."
+            exit 1
+          fi
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
