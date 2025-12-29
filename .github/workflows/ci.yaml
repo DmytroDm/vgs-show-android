@@ -24,7 +24,6 @@ jobs:
     name: 'Run Unit Tests'
     runs-on: macos-14  # macOS M1 runner
     timeout-minutes: 10
-    if: ${{ startsWith(github.head_ref, 'run_ui_tests') }} # Remove after UI tests config complete
 
     steps:
       - name: Checkout code
@@ -48,13 +47,14 @@ jobs:
         run: ./gradlew vgsshow:koverHtmlReportDebug
 
       - name: (Compass) Extract Code Coverage
-        id: coverage
+        if: github.ref == 'refs/heads/main'
         run: |
           COVERAGE=$(sed -n '51p' vgsshow/build/reports/kover/htmlDebug/index.html)
           METRIC_VALUE=`echo ${COVERAGE//[[:space:]]/} | sed 's/.$//'`
           echo "metric_value=$METRIC_VALUE" >> $GITHUB_OUTPUT
 
       - name: (Compass) Publish code coverage
+        if: github.ref == 'refs/heads/main'
         uses: verygood-ops/cicd-shared/.github/actions/compass@compass-action-v1.0.0
         with:
           metric_source_id: 'ari:cloud:compass:83673fa7-fd28-4f4a-9738-f584064570a7:metric-source/db43f86d-85fe-42e1-954d-457f5a4082b8/aba1cd73-bf42-4a4f-84fc-2a337c2623c5'
@@ -82,7 +82,7 @@ jobs:
   run-ui-tests:
     name: 'Run UI Tests'
     runs-on: macos-14  # macOS M1 runner
-    if: ${{ startsWith(github.head_ref, 'feature/') }} # Change to release
+    if: ${{ startsWith(github.head_ref, 'release/') }} # Change to release
 
     steps:
       - name: Checkout code
