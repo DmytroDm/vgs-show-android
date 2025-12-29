@@ -90,14 +90,14 @@ jobs:
           
           project_id=$(cat $google_service_key_path | jq -r ".project_id")
           
-          echo "$project_id"
+          echo "project_id=$project_id"
           
-          if [ ! -f "$google_service_key_path" ] || [ -z "$project_id" ]; then
-            echo "Google Service Account doesn't exist or project_id is not set."
-            exit 1
-          fi
-          
-          cat $google_service_key_path
+#          if [ ! -f "$google_service_key_path" ] || [ -z "$project_id" ]; then
+#            echo "Google Service Account doesn't exist or project_id is not set."
+#            exit 1
+#          fi
+#
+#          cat $google_service_key_path
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
