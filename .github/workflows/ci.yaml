@@ -87,12 +87,12 @@ jobs:
          
           echo $GOOGLE_SERVICE_ACCOUNT_KEY > key_path
           
-          if [ -f key_path ]; then
-            cat key_path
-          else
+          if [ ! -f key_path ]; then
             echo "Google Service Account doesn't exist."
             exit 1
           fi
+          
+          cat key_path
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
