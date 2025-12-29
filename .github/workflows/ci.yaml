@@ -82,8 +82,16 @@ jobs:
         env:
           GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
         run: |
-          echo $GOOGLE_SERVICE_ACCOUNT_KEY > $GITHUB_WORKSPACE/app/gcloud-service-key.json
-          cat $GITHUB_WORKSPACE/app/gcloud-service-key.json
+          key_path=$GITHUB_WORKSPACE/app/gcloud-service-key.json
+          
+          echo $GOOGLE_SERVICE_ACCOUNT_KEY > key_path
+          
+          if [ -f key_path ]; then
+             cat key_path
+#            sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+#            sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+#            cat $GITHUB_WORKSPACE/app/gcloud-service-key.json
+          fi
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
@@ -91,4 +99,3 @@ jobs:
       - name: Delete Google Service Account Key
         run: |
           rm $GITHUB_WORKSPACE/app/gcloud-service-key.json
-          cat $GITHUB_WORKSPACE/app/gcloud-service-key.json
