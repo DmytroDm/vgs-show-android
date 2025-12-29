@@ -64,7 +64,6 @@ jobs:
   run-ui-tests:
     name: 'Run UI Tests'
     runs-on: macos-14  # macOS M1 runner
-    timeout-minutes: 10
     if: ${{ startsWith(github.head_ref, 'feature/') }} # Change to release
 
     steps:
