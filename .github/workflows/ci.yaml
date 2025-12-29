@@ -80,6 +80,7 @@ jobs:
 
       - uses: google-github-actions/auth@v2
         with:
+          project_id: 'vgs-collect-show-mobile'
           credentials_json: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
 
       - name: Set up Cloud SDK
