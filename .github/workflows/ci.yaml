@@ -1,5 +1,5 @@
 ---
-name: 'CI: Tests'
+name: 'CI'
 
 on:
   pull_request:
@@ -64,7 +64,7 @@ jobs:
     name: 'Run UI Tests'
     runs-on: macos-14  # macOS M1 runner
     timeout-minutes: 10
-    if: ${{ startsWith(github.head_ref, 'feature/') }} # Change to main
+    if: ${{ startsWith(github.head_ref, 'release/') }} # Change to release
 
     steps:
       - name: Checkout code
