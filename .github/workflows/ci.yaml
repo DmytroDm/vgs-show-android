@@ -88,7 +88,7 @@ jobs:
          
           echo $GOOGLE_SERVICE_ACCOUNT_KEY > $google_service_key_path
           
-          project_id=$(jq -r ".project_id" "$google_service_key_path")
+          project_id=$(cat $google_service_key_path | jq -r ".project_id")
           
           echo "$project_id"
           
