@@ -83,7 +83,7 @@ jobs:
           GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
         shell: bash
         run: |
-          echo GOOGLE_SERVICE_ACCOUNT_KEY
+          echo $GOOGLE_SERVICE_ACCOUNT_KEY
 
       - name: Assemble debug & test APK
         run: ./gradlew assembleDebug assembleAndroidTest
