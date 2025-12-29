@@ -81,14 +81,13 @@ jobs:
       - name: Setup Google Service Account
         env:
           GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-          GOOGLE_PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
         shell: bash
         run: |
           google_service_key_path=$GITHUB_WORKSPACE/app/gcloud-service-key.json
          
           echo $GOOGLE_SERVICE_ACCOUNT_KEY > $google_service_key_path
           
-          project_id=$(cat $google_service_key_path | jq -r ".project_id")
+          project_id=$(cat $google_service_key_path | jq -r ".project_info.project_id")
           
           echo "project_id=$project_id"
           
