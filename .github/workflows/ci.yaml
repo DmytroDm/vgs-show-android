@@ -81,18 +81,22 @@ jobs:
       - name: Setup Google Service Account
         env:
           GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+          GOOGLE_PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
         shell: bash
         run: |
-          key_path=$GITHUB_WORKSPACE/app/gcloud-service-key.json
+          google_service_key_path=$GITHUB_WORKSPACE/app/gcloud-service-key.json
          
-          echo $GOOGLE_SERVICE_ACCOUNT_KEY > key_path
+          echo $GOOGLE_SERVICE_ACCOUNT_KEY > google_service_key_path
           
-          if [ ! -f key_path ]; then
+          if [ ! -f google_service_key_path ]; then
             echo "Google Service Account doesn't exist."
             exit 1
           fi
           
-          cat key_path
+          cat google_service_key_path
+          
+          sudo gcloud auth activate-service-account --key-file=google_service_key_path
+          sudo gcloud --quiet config set project $GOOGLE_PROJECT_ID
 
 #      - name: Assemble debug & test APK
 #        run: ./gradlew assembleDebug assembleAndroidTest
